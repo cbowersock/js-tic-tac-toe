@@ -13,6 +13,7 @@ const gameController = (() => {
             boardContainer.appendChild(cell);
         })
     }
+    
     const assignCell = (cell) => {
         cell.addEventListener('click', () => {
             if(cell.textContent != 'X' && cell.textContent != 'O') {
@@ -23,59 +24,57 @@ const gameController = (() => {
             }
         })
     }
+
     const checkWinner = () => {
-        if (gameBoard.board[0] != '') {
-            if (gameBoard.board[0] == gameBoard.board[1] && gameBoard.board[0] == gameBoard.board[2]) {
-                endGame();
-            }
-            else if (gameBoard.board[0] == gameBoard.board[3] && gameBoard.board[0] == gameBoard.board[6]) {
-                endGame();
-            }
-            else if (gameBoard.board[0] == gameBoard.board[4] && gameBoard.board[0] == gameBoard.board[8]) {
-                endGame();
-            }
+        if (gameBoard.board[0] != '' && gameBoard.board[0] == gameBoard.board[1] && gameBoard.board[0] == gameBoard.board[2]) {
+            endGame();
         }
-        else if (gameBoard.board[1] != '') {
-            if (gameBoard.board[1] == gameBoard.board[4] && gameBoard.board[1] == gameBoard.board[7]) {
-                endGame();
-            }
+        else if (gameBoard.board[0] != '' && gameBoard.board[0] == gameBoard.board[3] && gameBoard.board[0] == gameBoard.board[6]) {
+            endGame();
         }
-        else if(gameBoard.board[2] != '') {
-            if (gameBoard.board[2] == gameBoard.board[4] && gameBoard.board[2] == gameBoard.board[6]) {
-                endGame();
-            }
-            else if (gameBoard.board[2] == gameBoard.board[5] && gameBoard.board[2] == gameBoard.board[8]) {
-                endGame();
-            }
+        else if (gameBoard.board[0] != '' && gameBoard.board[0] == gameBoard.board[4] && gameBoard.board[0] == gameBoard.board[8]) {
+            endGame();
         }
-        else if (gameBoard.board[3] != '') {
-            if (gameBoard.board[3] == gameBoard.board[4] && gameBoard.board[3] == gameBoard.board[5]) {
-                endGame();
-            }
+        else if (gameBoard.board[1] != '' && gameBoard.board[1] == gameBoard.board[4] && gameBoard.board[1] == gameBoard.board[7]) {
+            endGame();
         }
-        else if (gameBoard.board[6] != '') {
-            if (gameBoard.board[6] == gameBoard.board[7] && gameBoard.board[6] == gameBoard.board[8]) {
-                endGame();
-            }
+        else if (gameBoard.board[2] != '' && gameBoard.board[2] == gameBoard.board[4] && gameBoard.board[2] == gameBoard.board[6]) {
+            endGame();
         }
+        else if (gameBoard.board[2] != '' && gameBoard.board[2] == gameBoard.board[5] && gameBoard.board[2] == gameBoard.board[8]) {
+            endGame();
+        }
+        else if (gameBoard.board[3] != '' && gameBoard.board[3] == gameBoard.board[4] && gameBoard.board[3] == gameBoard.board[5]) {
+            endGame();
+        }
+        else if (gameBoard.board[6] != '' && gameBoard.board[6] == gameBoard.board[7] && gameBoard.board[6] == gameBoard.board[8]) {
+            endGame();
+        }
+    }
+    const declareWinner = () => {
 
     }
+
     const startGame = () => {
-        const clint = playerFactory('clint', 'X');
-        const computer = playerFactory('computer', 'O');
-        gameBoard.players.push(clint);
-        gameBoard.players.push(computer);
+        const player1 = playerFactory('player1', 'X');
+        const player2 = playerFactory('player2', 'O');
+        gameBoard.players.push(player1);
+        gameBoard.players.push(player2);
         buildBoard();
     }
+
     const resetGame = () => {
 
     }
+
     const endGame = () => {
         console.log('game over');
     }
+
     const switchPlayer = () => {
 
     }
+
     return {
         startGame,
     }
