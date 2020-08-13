@@ -1,8 +1,10 @@
 const boardContainer = document.getElementById('board-container');
 const resultsContainer = document.getElementById('results-container');
+const startButton = document.getElementById('start-button');
 
 const gameController = (() => {
     let _playerTeam = 1;
+    
     const buildBoard = () => {
         let _counter = 1
         gameBoard.board.forEach(() => {
@@ -79,18 +81,36 @@ const gameController = (() => {
         location.reload();
     }
 
-    const endGame = (winner) => {
-        let button = document.createElement('button');
-        let results = document.createElement('h2');
+    const makeResetButton = () => {
+        const button = document.createElement('button');
         button.id = 'reset-button';
         button.textContent = 'Play Again!';
         button.addEventListener('click', () => {
             resetGame();
         });
+        return button;
+    }
+
+    const makeResultsDisplay = (winner) => {
+        const results = document.createElement('h2');
         results.id = 'game-results';
         results.textContent = `The Winner Is: ${winner}`;
-        resultsContainer.appendChild(results);
-        resultsContainer.appendChild(button);
+        return results;
+    }
+
+    const endGame = (winner) => {
+
+        if (winner == 'X') {
+            winner = gameBoard.players.find(player => player.team === 'X');
+            winner = winner.name;
+        }
+        else if (winner == 'O') {
+            winner = gameBoard.players.find(player => player.team === 'O');
+            winner = winner.name;
+        }
+
+        resultsContainer.appendChild(makeResultsDisplay(winner));
+        resultsContainer.appendChild(makeResetButton());
     }
 
     const switchPlayer = () => {
@@ -98,16 +118,16 @@ const gameController = (() => {
     }
 
     const startGame = () => {
-        const player1 = playerFactory('player1', 'X');
-        const player2 = playerFactory('player2', 'O');
-        gameBoard.players.push(player1);
-        gameBoard.players.push(player2);
+        const firstPlayer = playerFactory(document.getElementById('player1').value, 'X');
+        const secondPlayer = playerFactory(document.getElementById('player2').value, 'O');
+        gameBoard.players.push(firstPlayer);
+        gameBoard.players.push(secondPlayer);
         buildBoard();
     }
 
-    return {
-        startGame,
-    }
+    startButton.addEventListener('click', () => {
+        startGame();
+    })
 })();
 
 const gameBoard = (() => {
@@ -122,8 +142,5 @@ const gameBoard = (() => {
 const playerFactory = (name, team) => {
     this.team = team;
     this.name = name;
-    let isWinner = false;
-    return {name, team, isWinner};
+    return {name, team};
 };
-
-gameController.startGame();
