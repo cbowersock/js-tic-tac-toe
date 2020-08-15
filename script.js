@@ -8,7 +8,7 @@ const gameController = (() => {
     const buildBoard = () => {
         let _counter = 1
         gameBoard.board.forEach(() => {
-            let cell = document.createElement('div');
+            const cell = document.createElement('div');
             cell.classList.add('game-square');
             cell.id = _counter;
             _counter++;
